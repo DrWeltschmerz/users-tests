@@ -1,18 +1,12 @@
-replace github.com/DrWeltschmerz/users-core => ../users-core
-
-replace github.com/DrWeltschmerz/users-adapter-gorm => ../users-adapter-gorm
-
-replace github.com/DrWeltschmerz/users-adapter-gin => ../users-adapter-gin
-
 module github.com/DrWeltschmerz/users-tests
 
 go 1.24.5
 
 require (
 	github.com/DrWeltschmerz/jwt-auth v1.2.0
-	github.com/DrWeltschmerz/users-adapter-gin v0.1.0
-	github.com/DrWeltschmerz/users-adapter-gorm v1.1.0
-	github.com/DrWeltschmerz/users-core v1.1.0
+	github.com/DrWeltschmerz/users-adapter-gin v1.2.0
+	github.com/DrWeltschmerz/users-adapter-gorm v1.2.0
+	github.com/DrWeltschmerz/users-core v1.2.0
 	github.com/gin-gonic/gin v1.10.1
 	github.com/stretchr/testify v1.11.1
 	gorm.io/driver/sqlite v1.6.0
