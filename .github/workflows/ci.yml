@@ -51,7 +51,8 @@ jobs:
 
       - name: Start users service (background)
         run: |
-          cd server && go run main.go &
+          cd server && nohup go run main.go > ../server.log 2>&1 &
+          cd ..
           for i in {1..20}; do
             if curl -s http://localhost:8080/healthz > /dev/null; then
               echo 'Server is up!'
@@ -61,6 +62,12 @@ jobs:
             sleep 1
           done
         shell: bash
+
+      - name: Print server logs on failure
+        if: failure()
+        run: |
+          echo '==== SERVER LOGS ===='
+          cat server.log || echo 'No server.log found.'
 
       - name: Run Playwright tests
         run: npx playwright test
