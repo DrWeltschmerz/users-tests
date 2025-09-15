@@ -63,8 +63,8 @@ jobs:
           done
         shell: bash
 
-      - name: Print server logs on failure
-        if: failure()
+      - name: Print server logs
+        if: always()
         run: |
           echo '==== SERVER LOGS ===='
           cat server.log || echo 'No server.log found.'
