@@ -50,11 +50,11 @@ jobs:
         working-directory: ./playwright
 
       - name: Start users service (background)
-        run: |
-          cd server && go run main.go 
+        run:
+          go run main.go 
           sleep 5
-        shell: bash
-        
+        working-directory: server
+
       - name: Run Playwright tests
         run: npx playwright test
         working-directory: ./playwright
