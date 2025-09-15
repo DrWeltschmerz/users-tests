@@ -1,0 +1,13 @@
+{
+  "name": "users-api-playwright-tests",
+  "version": "1.0.0",
+  "description": "Playwright API tests for users service",
+  "main": "api.spec.ts",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "typescript": "^5.0.0"
+  }
+}
