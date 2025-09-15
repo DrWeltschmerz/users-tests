@@ -43,7 +43,7 @@ jobs:
 
       - name: Install Go dependencies
         run: go mod tidy
-        working-directory: ../server
+        working-directory: server
 
       - name: Install Node.js dependencies
         run: npm install
@@ -51,9 +51,8 @@ jobs:
 
       - name: Start users service (background)
         run: |
-          cd ../server && go run main.go &
+          cd server && go run main.go &
           sleep 5
-        working-directory: ./playwright
         shell: bash
 
       - name: Run Playwright tests
