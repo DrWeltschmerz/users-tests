@@ -51,16 +51,10 @@ jobs:
 
       - name: Start users service (background)
         run: |
-          cd server && nohup go run main.go 
+          cd server && go run main.go 
           sleep 5
         shell: bash
-
-      - name: Print server logs
-        if: always()
-        run: |
-          echo '==== SERVER LOGS ===='
-          cat server.log || echo 'No server.log found.'
-
+        
       - name: Run Playwright tests
         run: npx playwright test
         working-directory: ./playwright
