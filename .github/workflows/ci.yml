@@ -24,3 +24,45 @@ jobs:
 
       - name: Run tests
         run: go test -v ./...
+
+  playwright:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./playwright
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Go dependencies
+        run: go mod tidy
+        working-directory: ../
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Start users service (background)
+        run: |
+          cd server && go run main.go &
+          sleep 5
+        shell: bash
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright/playwright-report/
