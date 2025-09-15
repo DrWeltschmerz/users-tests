@@ -18,7 +18,8 @@ func main() {
 	// Use file-based SQLite for persistence, or in-memory for ephemeral
 	dbPath := os.Getenv("DB_PATH")
 	if dbPath == "" {
-		dbPath = "file:test.db?cache=shared" // persistent file for dev/test
+		// Use in-memory DB for CI/tests by default
+		dbPath = ":memory:"
 	}
 	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
 	if err != nil {
