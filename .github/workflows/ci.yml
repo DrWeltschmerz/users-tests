@@ -45,15 +45,24 @@ jobs:
         run: go mod tidy
         working-directory: server
 
+
       - name: Install Node.js dependencies
         run: npm install
         working-directory: ./playwright
 
       - name: Start users service (background)
-        run:
-          go run main.go 
-          sleep 5
-        working-directory: server
+        run: |
+          cd server && nohup go run main.go&
+          # Wait for the server to be ready
+          for i in {1..60}; do
+            if curl -s http://localhost:8080/healthz > /dev/null; then
+              echo 'Server is up!'
+              break
+            fi
+            echo 'Waiting for server...'
+            sleep 1
+          done
+        shell: bash
 
       - name: Run Playwright tests
         run: npx playwright test
